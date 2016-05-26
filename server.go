@@ -1,12 +1,9 @@
 package main
 
 import (
-	"bytes"
+	"encoding/json"
 	"log"
 	"os"
-	"strconv"
-	"strings"
-	"time"
 
 	"gopkg.in/mcuadros/go-syslog.v2"
 	"gopkg.in/mcuadros/go-syslog.v2/format"
@@ -52,35 +49,12 @@ func killServer() {
 
 func recvLogs(logChan syslog.LogPartsChannel) {
 	for logPart := range logChan {
-		b := &bytes.Buffer{}
-		for k, v := range logPart {
-			var value string
-			switch v := v.(type) {
-			case string:
-				value = v
-			case time.Time:
-				value = v.String()
-			case int:
-				value = strconv.Itoa(v)
-			default:
-				log.Printf("Unexpected type %T", v)
-				break
-			}
-
-			if value == "" {
-				value = `""`
-			}
-
-			log := strings.Title(k) + ": " + value + "|"
-			_, err := b.WriteString(log)
-			if err != nil {
-
-			}
+		b, err := json.Marshal(logPart)
+		if err != nil {
+			log.Print(err)
+			continue
 		}
-
-		s := b.String()
-		log.Print(s[:len(s)-1])
-		log.Print(logPart)
+		log.Printf("%s", b)
 	}
 }
 
