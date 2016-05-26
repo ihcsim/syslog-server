@@ -3,12 +3,18 @@ package main
 import (
 	"log"
 	"log/syslog"
+	"os"
 )
 
 type logAPI func(string) error
 
 func main() {
-	host := "192.168.99.100:10154"
+	host := "127.0.0.1:10514"
+	if os.Getenv("SERVER_HOST") != "" {
+		host = os.Getenv("SERVER_HOST")
+	}
+
+	log.Print("Sending messages to ", host)
 	client, err := syslog.Dial("tcp", host, syslog.LOG_INFO, "")
 	if err != nil {
 		log.Fatal(err)

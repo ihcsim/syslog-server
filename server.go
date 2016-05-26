@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"log"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -27,7 +28,10 @@ func main() {
 	errChan := make(chan error)
 	go recvErrors(errChan)
 
-	host := ":10154"
+	host := "127.0.0.1:10514"
+	if os.Getenv("HOST") != "" {
+		host = os.Getenv("HOST")
+	}
 	if err := server.ListenTCP(host); err != nil {
 		log.Fatal(err)
 	}
@@ -36,7 +40,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	log.Print("Starting server at", host)
+	log.Print("Starting server at ", host)
 	server.Wait()
 }
 
