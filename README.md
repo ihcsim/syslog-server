@@ -1,13 +1,16 @@
 # go-syslog
-This is a sample project where a client is used to send syslog messages to a syslog server. The objective is to explore the Go standard [syslog](https://golang.org/pkg/log/syslog/) library and the Docker [syslog log driver](https://docs.docker.com/engine/admin/logging/overview/). 
+
+[![Codeship Status for ihcsim/syslog-server](https://app.codeship.com/projects/a0e76fb0-b665-0134-c236-7ea8c0f9c13a/status?branch=master)](https://app.codeship.com/projects/194350)
+
+This is a sample project where a client is used to send syslog messages to a syslog server. The objective is to explore the Go standard [syslog](https://golang.org/pkg/log/syslog/) library and the Docker [syslog log driver](https://docs.docker.com/engine/admin/logging/overview/).
 
 The following is a list of syslog API that the client uses to send different message types to the server:
 
 1. [syslog.Alert](https://golang.org/pkg/log/syslog/#Writer.Alert)
-1. [syslog.Crit](https://golang.org/pkg/log/syslog/#Writer.Crit) 
+1. [syslog.Crit](https://golang.org/pkg/log/syslog/#Writer.Crit)
 1. [syslog.Debug](https://golang.org/pkg/log/syslog/#Writer.Debug)
 1. [syslog.Emerg](https://golang.org/pkg/log/syslog/#Writer.Alert)
-1. [syslog.Err](https://golang.org/pkg/log/syslog/#Writer.Err) 
+1. [syslog.Err](https://golang.org/pkg/log/syslog/#Writer.Err)
 1. [syslog.Info](https://golang.org/pkg/log/syslog/#Writer.Info)
 1. [syslog.Notice](https://golang.org/pkg/log/syslog/#Writer.Notice)
 1. [syslog.Warning](https://golang.org/pkg/log/syslog/#Writer.Warning)
